@@ -8,7 +8,7 @@ public class GamepadTest extends OpMode
 {
     @Override
     public void init() {
-
+        telemetry.addData("Ajutor","Acest mod de operare arata toate datele primite de la controllere.");
     }
 
     @Override

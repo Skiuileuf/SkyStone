@@ -51,10 +51,12 @@ public class Omni extends OpMode {
             if (GAMEPAD1.left_bumper.toggle) {
                 //glisiera.setDirection(DcMotorSimple.Direction.REVERSE);
                 //glisiera.setPower(0.1);
+                telemetry.addData("Directie Glisiera", "REVERSE");
 
             } else {
                 //glisiera.setDirection(DcMotorSimple.Direction.FORWARD);
                 //glisiera.setPower(0.1);
+                telemetry.addData("Directie Glisiera", "FORWARD");
             }
             telemetry.addData("Glisiera","activata, apasa right bumper pt dezactivare");
         }

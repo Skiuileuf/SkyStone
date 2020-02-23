@@ -8,7 +8,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.Libs.GAMEPAD;
 
 @TeleOp(name="MilFuri", group="Pushbot")
-public class Milfuri extends LinearOpMode {
+public class
+
+Milfuri extends LinearOpMode {
 
     float rotate_angle = 0;
     double reset_angle = 0;

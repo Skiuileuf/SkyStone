@@ -15,10 +15,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @TeleOp(name="Holonomic", group="Pushbot")
 public class Holonomic extends OpMode {
-
-    float rotate_angle = 0;
-    double reset_angle = 0;
-
     private DcMotor front_left_wheel = null;
     private DcMotor back_left_wheel = null;
     private DcMotor back_right_wheel = null;

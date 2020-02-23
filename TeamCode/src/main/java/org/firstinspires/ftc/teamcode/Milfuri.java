@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Libs.GAMEPAD;
+//import org.firstinspires.ftc.teamcode.Libs.GAMEPAD;
 
 @TeleOp(name="MilFuri", group="Pushbot")
 public class Milfuri extends LinearOpMode {
@@ -17,7 +17,7 @@ public class Milfuri extends LinearOpMode {
     private DcMotor back_right_wheel = null;
     private DcMotor front_right_wheel = null;
     //Gamepad ca sa suporte toggle
-    private GAMEPAD gamepad = new GAMEPAD(this.gamepad1, this.telemetry);
+    //private GAMEPAD gamepad = new GAMEPAD(this.gamepad1, this.telemetry);
     //Declaratii servo
     private Servo gheara_unu = null;
     private Servo gheara_doi = null;
@@ -94,7 +94,7 @@ public class Milfuri extends LinearOpMode {
         else if(gamepad1.dpad_down){
             stick_y = 0.5;
         }
-
+        /*
         if(gamepad.x.toggle)
         {
             gheara_unu.setPosition(1);
@@ -104,7 +104,7 @@ public class Milfuri extends LinearOpMode {
             {
             gheara_unu.setPosition(0);
             gheara_doi.setPosition(0);
-            }
+            }*/
 
         //MOVEMENT
         theta = Math.atan2(stick_y, stick_x) - gyroAngle - (Math.PI / 2);
@@ -118,7 +118,7 @@ public class Milfuri extends LinearOpMode {
         telemetry.addData("Back Left", Px - Protate);
         telemetry.addData("Back Right", Py + Protate);
         telemetry.addData("Front Right", Px + Protate);
-        telemetry.addData("Servo", gheara_unu.getPosition());
+        //telemetry.addData("Servo", gheara_unu.getPosition());
 
         front_left_wheel.setPower(Py - Protate);
         back_left_wheel.setPower(Px - Protate);

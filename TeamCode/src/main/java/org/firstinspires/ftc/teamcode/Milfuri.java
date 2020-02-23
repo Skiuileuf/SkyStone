@@ -13,7 +13,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @TeleOp(name="MilFuri", group="Pushbot")
-public class Milfuri extends LinearOpMode {
+public class
+
+Milfuri extends LinearOpMode {
 
     float rotate_angle = 0;
     double reset_angle = 0;

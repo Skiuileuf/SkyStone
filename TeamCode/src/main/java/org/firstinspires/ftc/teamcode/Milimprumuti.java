@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -8,7 +8,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.Libs.GAMEPAD;
 
 @TeleOp(name="MilFuri", group="Pushbot")
-public class Milfuri extends LinearOpMode {
+public class Milimprumuti extends OpMode {
+
     //Unghiuri
     double reset_angle = 0;
     //Declaratii motoare
@@ -23,7 +24,7 @@ public class Milfuri extends LinearOpMode {
     private Servo gheara_doi = null;
 
     @Override
-    public void runOpMode() {
+    public void init() {
         //Initializare motoare si servo motoare
         front_left_wheel = hardwareMap.dcMotor.get("leftFront");
         back_left_wheel = hardwareMap.dcMotor.get("leftRear");
@@ -48,14 +49,12 @@ public class Milfuri extends LinearOpMode {
         back_left_wheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         front_right_wheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         back_right_wheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
 
-
-        while(!opModeIsActive()){}
-        //Cat timp ruleaza modul de operare, dupa start si inainte de stop
-        while(opModeIsActive()){
-            drive();
-            telemetry.update();
-        }
+    @Override
+    public void loop() {
+        drive();
+        telemetry.update();
     }
 
     public void drive() {
@@ -101,10 +100,10 @@ public class Milfuri extends LinearOpMode {
             gheara_doi.setPosition(1);
         }
         else
-            {
+        {
             gheara_unu.setPosition(0);
             gheara_doi.setPosition(0);
-            }
+        }
 
         //MOVEMENT
         theta = Math.atan2(stick_y, stick_x) - gyroAngle - (Math.PI / 2);
@@ -125,8 +124,6 @@ public class Milfuri extends LinearOpMode {
         back_right_wheel.setPower(Py + Protate);
         front_right_wheel.setPower(Px + Protate);
     }
-
-
     public double getHeading(){
         //Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         //double heading = angles.firstAngle;\

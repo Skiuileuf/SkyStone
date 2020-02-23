@@ -37,9 +37,12 @@ public class Omni extends OpMode {
 
         ghearaUnu.setDirection(Servo.Direction.REVERSE);
 
-        //glisiera = hardwareMap.dcMotor.get("glisiera");
+        glisiera = hardwareMap.dcMotor.get("glisiera");
 
-        //glisiera.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        glisiera.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        glisiera.setTargetPosition(500);
+        glisiera.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        glisiera.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
     }
 
@@ -49,20 +52,20 @@ public class Omni extends OpMode {
 
         if(GAMEPAD1.right_bumper.toggle) {
             if (GAMEPAD1.left_bumper.toggle) {
-                //glisiera.setDirection(DcMotorSimple.Direction.REVERSE);
-                //glisiera.setPower(0.1);
+                glisiera.setDirection(DcMotorSimple.Direction.REVERSE);
+                glisiera.setPower(0.7);
                 telemetry.addData("Directie Glisiera", "REVERSE");
 
             } else {
-                //glisiera.setDirection(DcMotorSimple.Direction.FORWARD);
-                //glisiera.setPower(0.1);
+                glisiera.setDirection(DcMotorSimple.Direction.FORWARD);
+                glisiera.setPower(0.7);
                 telemetry.addData("Directie Glisiera", "FORWARD");
             }
             telemetry.addData("Glisiera","activata, apasa right bumper pt dezactivare");
         }
         else
             {
-                //glisiera.setPower(0);
+                glisiera.setPower(0);
                 telemetry.addData("Glisiera", "dezactivata");
             }
 

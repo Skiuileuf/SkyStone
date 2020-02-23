@@ -40,12 +40,12 @@ public class Omni extends OpMode {
         ghearaUnu.setDirection(Servo.Direction.REVERSE);
 
         glisiera = hardwareMap.dcMotor.get("glisiera");
-
+/*
         glisiera.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         glisiera.setTargetPosition(500);
         glisiera.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         glisiera.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
+*/
     }
 
     @Override
@@ -73,8 +73,8 @@ public class Omni extends OpMode {
 
         if(GAMEPAD1.x.toggle)
         {
-            ghearaUnu.setPosition(0.5);
-            ghearaDoi.setPosition(0.5);
+            ghearaUnu.setPosition(0.7); //stanga
+            ghearaDoi.setPosition(0.6); // dreapta
             telemetry.addData("Gheare", "1");
         }
         else

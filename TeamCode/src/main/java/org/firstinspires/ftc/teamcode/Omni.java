@@ -18,6 +18,7 @@ public class Omni extends OpMode {
     private Drive drive = null;
 
     GAMEPAD GAMEPAD1 = null;
+    GAMEPAD GAMEPAD2 = null;
 
     DcMotor glisiera = null;
 
@@ -30,6 +31,7 @@ public class Omni extends OpMode {
     @Override
     public void init() {
         GAMEPAD1 = new GAMEPAD(this.gamepad1, this.telemetry);
+        GAMEPAD2 = new GAMEPAD(this.gamepad2, this.telemetry);
         drive = new Drive(this.hardwareMap, GAMEPAD1, this.telemetry);
 
         ghearaUnu = hardwareMap.servo.get("agataStanga");
@@ -71,8 +73,8 @@ public class Omni extends OpMode {
 
         if(GAMEPAD1.x.toggle)
         {
-            ghearaUnu.setPosition(1);
-            ghearaDoi.setPosition(1);
+            ghearaUnu.setPosition(0.5);
+            ghearaDoi.setPosition(0.5);
             telemetry.addData("Gheare", "1");
         }
         else

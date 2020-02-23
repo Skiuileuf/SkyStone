@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Libs.GAMEPAD;
 
-@TeleOp(name="MilFuri", group="Pushbot")
+@TeleOp(name="MilImprumuti", group="Pushbot")
 public class Milimprumuti extends OpMode {
 
     //Unghiuri

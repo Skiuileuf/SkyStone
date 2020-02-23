@@ -7,26 +7,25 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Libs.GAMEPAD;
 
-@TeleOp(name="MilFuri", group="Pushbot")
-public class
-
-Milfuri extends LinearOpMode {
-
+@TeleOp(name="MilFuri", group="TeleOp")
+public class Milfuri extends LinearOpMode {
+    //Unghiuri
     float rotate_angle = 0;
     double reset_angle = 0;
-
+    //Declaratii motoare
     private DcMotor front_left_wheel = null;
     private DcMotor back_left_wheel = null;
     private DcMotor back_right_wheel = null;
     private DcMotor front_right_wheel = null;
-
-    private GAMEPAD gamepad1 = null;
-
+    //Gamepad ca sa suporte toggle
+    private GAMEPAD gamepad = new GAMEPAD(this.gamepad1, this.telemetry);
+    //Declaratii servo
     private Servo gheara_unu = null;
     private Servo gheara_doi = null;
 
     @Override
     public void runOpMode() {
+        //Initializare motoare si servo motoare
         front_left_wheel = hardwareMap.dcMotor.get("leftFront");
         back_left_wheel = hardwareMap.dcMotor.get("leftRear");
         back_right_wheel = hardwareMap.dcMotor.get("rightRear");
@@ -35,12 +34,17 @@ Milfuri extends LinearOpMode {
         gheara_unu = hardwareMap.servo.get("agataStanga");
         gheara_doi = hardwareMap.servo.get("agataDreapta");
 
+
+        //Setare directii motoare
+        gheara_unu.setDirection(Servo.Direction.FORWARD);
+        gheara_doi.setDirection(Servo.Direction.REVERSE);
+
         front_left_wheel.setDirection(DcMotor.Direction.FORWARD);
         back_left_wheel.setDirection(DcMotor.Direction.FORWARD);
 
         front_right_wheel.setDirection(DcMotor.Direction.REVERSE);
         back_right_wheel.setDirection(DcMotor.Direction.REVERSE);
-
+        //Setare comportament cand power = 0
         front_left_wheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         back_left_wheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         front_right_wheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -48,53 +52,14 @@ Milfuri extends LinearOpMode {
 
 
         while(!opModeIsActive()){}
-
+        //Cat timp ruleaza modul de operare, dupa start si inainte de stop
         while(opModeIsActive()){
             drive();
             resetAngle();
-            //driveSimple();
             telemetry.update();
         }
     }
-    public void driveSimple(){
-        double power = .5;
-        if(gamepad1.dpad_up){ //Forward
-            front_left_wheel.setPower(-power);
-            back_left_wheel.setPower(-power);
-            back_right_wheel.setPower(-power);
-            front_right_wheel.setPower(-power);
-        }
-        else if(gamepad1.dpad_left){ //Left
-            front_left_wheel.setPower(power);
-            back_left_wheel.setPower(-power);
-            back_right_wheel.setPower(power);
-            front_right_wheel.setPower(-power);
-        }
-        else if(gamepad1.dpad_down){ //Back
-            front_left_wheel.setPower(power);
-            back_left_wheel.setPower(power);
-            back_right_wheel.setPower(power);
-            front_right_wheel.setPower(power);
-        }
-        else if(gamepad1.dpad_right){ //Right
-            front_left_wheel.setPower(-power);
-            back_left_wheel.setPower(power);
-            back_right_wheel.setPower(-power);
-            front_right_wheel.setPower(power);
-        }
-        else if(Math.abs(gamepad1.right_stick_x) > 0){ //Rotation
-            front_left_wheel.setPower(-gamepad1.right_stick_x);
-            back_left_wheel.setPower(-gamepad1.right_stick_x);
-            back_right_wheel.setPower(gamepad1.right_stick_x);
-            front_right_wheel.setPower(gamepad1.right_stick_x);
-        }
-        else{
-            front_left_wheel.setPower(0);
-            back_left_wheel.setPower(0);
-            back_right_wheel.setPower(0);
-            front_right_wheel.setPower(0);
-        }
-    }
+    
     public void drive() {
         double Protate = gamepad1.right_stick_x/4;
         double stick_x = gamepad1.left_stick_x * Math.sqrt(Math.pow(1-Math.abs(Protate), 2)/2); //Accounts for Protate when limiting magnitude to be less than 1
@@ -132,10 +97,16 @@ Milfuri extends LinearOpMode {
             stick_y = 0.5;
         }
 
-        if(gamepad1.a.toggle)
+        if(gamepad.x.toggle)
         {
-
+            gheara_unu.setPosition(1);
+            gheara_doi.setPosition(1);
         }
+        else
+            {
+            gheara_unu.setPosition(0);
+            gheara_doi.setPosition(0);
+            }
 
         //MOVEMENT
         theta = Math.atan2(stick_y, stick_x) - gyroAngle - (Math.PI / 2);
@@ -149,6 +120,7 @@ Milfuri extends LinearOpMode {
         telemetry.addData("Back Left", Px - Protate);
         telemetry.addData("Back Right", Py + Protate);
         telemetry.addData("Front Right", Px + Protate);
+        telemetry.addData("Servo", gheara_unu.getPosition());
 
         front_left_wheel.setPower(Py - Protate);
         back_left_wheel.setPower(Px - Protate);

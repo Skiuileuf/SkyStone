@@ -1,16 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.teamcode.Libs.GAMEPAD;
 
 @TeleOp(name="MilFuri", group="Pushbot")
 public class Milfuri extends LinearOpMode {
@@ -23,13 +18,20 @@ public class Milfuri extends LinearOpMode {
     private DcMotor back_right_wheel = null;
     private DcMotor front_right_wheel = null;
 
+    private GAMEPAD gamepad1 = null;
+
+    private Servo gheara_unu = null;
+    private Servo gheara_doi = null;
+
     @Override
     public void runOpMode() {
         front_left_wheel = hardwareMap.dcMotor.get("leftFront");
         back_left_wheel = hardwareMap.dcMotor.get("leftRear");
         back_right_wheel = hardwareMap.dcMotor.get("rightRear");
-        front_right_wheel = hardwareMap.dcMotor.get("right" +
-                "Front");
+        front_right_wheel = hardwareMap.dcMotor.get("rightFront");
+
+        gheara_unu = hardwareMap.servo.get("agataStanga");
+        gheara_doi = hardwareMap.servo.get("agataDreapta");
 
         front_left_wheel.setDirection(DcMotor.Direction.FORWARD);
         back_left_wheel.setDirection(DcMotor.Direction.FORWARD);
@@ -128,6 +130,10 @@ public class Milfuri extends LinearOpMode {
             stick_y = 0.5;
         }
 
+        if(gamepad1.a.toggle)
+        {
+
+        }
 
         //MOVEMENT
         theta = Math.atan2(stick_y, stick_x) - gyroAngle - (Math.PI / 2);

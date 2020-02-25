@@ -2,15 +2,9 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Libs.GAMEPAD;
 import org.firstinspires.ftc.teamcode.Libs.Utils;
 
@@ -76,12 +70,17 @@ public class Drive {
         double b;
         double c;
         double d;
-
+/*
         a = +left_stick_powerY - left_stick_powerX + right_stick_powerX;
         b = +left_stick_powerY + left_stick_powerX - right_stick_powerX;
         c = +left_stick_powerY - left_stick_powerX - right_stick_powerX;
         d = +left_stick_powerY + left_stick_powerX + right_stick_powerX;
+*/
 
+        a = +left_stick_powerY + left_stick_powerX + right_stick_powerX;
+        b = +left_stick_powerY - left_stick_powerX - right_stick_powerX;
+        c = +left_stick_powerY + left_stick_powerX - right_stick_powerX;
+        d = +left_stick_powerY - left_stick_powerX + right_stick_powerX;
 
         a = Utils.cut(a, -1d, 1d);
         b = Utils.cut(b, -1d, 1d);

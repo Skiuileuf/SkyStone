@@ -1,14 +1,12 @@
 package org.firstinspires.ftc.teamcode;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Drive;
-import org.firstinspires.ftc.teamcode.Drive;
 import org.firstinspires.ftc.teamcode.Libs.GAMEPAD;
+import org.firstinspires.ftc.teamcode.Libs.Utils;
 
 
 @TeleOp(name = "omni", group = "TeleOp")
@@ -25,7 +23,12 @@ public class Omni extends OpMode {
     Servo ghearaUnu = null;
     Servo ghearaDoi = null;
 
+    Servo bratUnu = null;
+    Servo bratDoi = null;
 
+    int minimGlisiera = 0;
+    int maximGlisiera = 2500;
+    int valoareGlisiera = 0;
 
 
     @Override
@@ -39,9 +42,27 @@ public class Omni extends OpMode {
 
         ghearaUnu.setDirection(Servo.Direction.REVERSE);
 
+        bratUnu = hardwareMap.servo.get("brat1");
+        bratDoi = hardwareMap.servo.get("brat2");
+
+        bratUnu.setDirection(Servo.Direction.REVERSE);
+
+
+
+
+
+        //Motor NeveRest 60:1
+        //1680 tickuri/rotatie
         glisiera = hardwareMap.dcMotor.get("glisiera");
-/*
+
+        valoareGlisiera = glisiera.getCurrentPosition();
+
+
+        //ACEST COD NECESITA UN ENCODER
+        glisiera.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         glisiera.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+/*
         glisiera.setTargetPosition(500);
         glisiera.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         glisiera.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -52,11 +73,25 @@ public class Omni extends OpMode {
     public void loop() {
         drive.goTeleOp();
 
+
+
+
+        if(GAMEPAD2.right_stick_y > 0.3 || GAMEPAD2.right_stick_y < -0.3)
+        {
+            valoareGlisiera -= Math.floor(Utils.cut(GAMEPAD2.right_stick_y, (double)minimGlisiera, (double)maximGlisiera)); //axa y merge cu minus in sus
+        }
+
+        telemetry.addData("Pozitie Glisiera", glisiera.getCurrentPosition());
+        telemetry.addData("Valoare Glisiera", valoareGlisiera);
+
+        glisiera.setTargetPosition(valoareGlisiera);
+
         if(GAMEPAD1.right_bumper.toggle) {
             if (GAMEPAD1.left_bumper.toggle) {
                 glisiera.setDirection(DcMotorSimple.Direction.REVERSE);
                 glisiera.setPower(0.7);
                 telemetry.addData("Directie Glisiera", "REVERSE");
+
 
             } else {
                 glisiera.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -83,6 +118,7 @@ public class Omni extends OpMode {
                 ghearaDoi.setPosition(0);
                 telemetry.addData("Gheare", "0");
             }
+
 
         telemetry.update();
     }

@@ -66,28 +66,34 @@ public class Drive {
 
     private void goMecanum(double left_stick_powerY, double left_stick_powerX, double right_stick_powerX) {
 
-        double a;
-        double b;
-        double c;
-        double d;
+        double lf;
+        double rf;
+        double rr;
+        double lr;
 /*
         a = +left_stick_powerY - left_stick_powerX + right_stick_powerX;
         b = +left_stick_powerY + left_stick_powerX - right_stick_powerX;
         c = +left_stick_powerY - left_stick_powerX - right_stick_powerX;
         d = +left_stick_powerY + left_stick_powerX + right_stick_powerX;
 */
+        /*
+        lf = +left_stick_powerY - left_stick_powerX + right_stick_powerX;
+        rf = +left_stick_powerY + left_stick_powerX - right_stick_powerX;
+        rr = +left_stick_powerY - left_stick_powerX - right_stick_powerX;
+        lr = +left_stick_powerY + left_stick_powerX + right_stick_powerX;
+        */
 
-        a = +left_stick_powerY + left_stick_powerX + right_stick_powerX;
-        b = +left_stick_powerY - left_stick_powerX - right_stick_powerX;
-        c = +left_stick_powerY + left_stick_powerX - right_stick_powerX;
-        d = +left_stick_powerY - left_stick_powerX + right_stick_powerX;
+        lf = +left_stick_powerY + left_stick_powerX + right_stick_powerX;
+        rf = +left_stick_powerY - left_stick_powerX - right_stick_powerX;
+        rr = +left_stick_powerY + left_stick_powerX - right_stick_powerX;
+        lr = +left_stick_powerY - left_stick_powerX + right_stick_powerX;
 
-        a = Utils.cut(a, -1d, 1d);
-        b = Utils.cut(b, -1d, 1d);
-        c = Utils.cut(c, -1d, 1d);
-        d = Utils.cut(d, -1d, 1d);
+        lf = Utils.cut(lf, -1d, 1d);
+        rf = Utils.cut(rf, -1d, 1d);
+        rr = Utils.cut(rr, -1d, 1d);
+        lr = Utils.cut(lr, -1d, 1d);
 
-        setPower(a, b, c, d);
+        setPower(lf, rf, rr, lr);
     }
 
 }

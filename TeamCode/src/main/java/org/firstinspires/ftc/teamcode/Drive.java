@@ -83,10 +83,10 @@ public class Drive {
         lr = +left_stick_powerY + left_stick_powerX + right_stick_powerX;
         */
 
-        lf = +left_stick_powerY + left_stick_powerX + (right_stick_powerX * 0.75);
-        rf = +left_stick_powerY - left_stick_powerX - (right_stick_powerX * 0.75);
-        rr = +left_stick_powerY + left_stick_powerX - (right_stick_powerX * 0.75);
-        lr = +left_stick_powerY - left_stick_powerX + (right_stick_powerX * 0.75);
+        lf = +left_stick_powerY + left_stick_powerX + (right_stick_powerX * 1);
+        rf = +left_stick_powerY - left_stick_powerX - (right_stick_powerX * 1);
+        rr = +left_stick_powerY + left_stick_powerX - (right_stick_powerX * 1);
+        lr = +left_stick_powerY - left_stick_powerX + (right_stick_powerX * 1);
 
         lf = Utils.cut(lf, -1d, 1d);
         rf = Utils.cut(rf, -1d, 1d);

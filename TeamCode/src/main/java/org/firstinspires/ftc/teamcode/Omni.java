@@ -97,7 +97,7 @@ public class Omni extends OpMode {
         if(GAMEPAD1.x.toggle)
         {
             ghearaUnu.setPosition(0.75); //stanga
-            ghearaDoi.setPosition(0.6); // dreapta
+            ghearaDoi.setPosition(0.65); // dreapta
             telemetry.addData("Gheare", "1");
         } else {
                 ghearaUnu.setPosition(0);

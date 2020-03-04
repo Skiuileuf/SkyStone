@@ -28,9 +28,6 @@ public class Omni extends OpMode {
     Servo bratUnu = null; //dreapta
     Servo bratDoi = null; //stanga
 
-    int minimGlisiera = 0;
-    int maximGlisiera = 2830;
-    int valoareGlisiera = 0;
 
 
 
@@ -65,6 +62,8 @@ public class Omni extends OpMode {
 
 
         //glisiera.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
         glisiera.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //glisiera.setDirection(DcMotorSimple.Direction.REVERSE);
 /*
@@ -96,8 +95,9 @@ public class Omni extends OpMode {
         //Cand se apasa butonul X pe gamepad 1 coboara sau urca ghearele
         if(GAMEPAD1.x.toggle)
         {
-            ghearaUnu.setPosition(0.75); //stanga
-            ghearaDoi.setPosition(0.65); // dreapta
+            ghearaUnu.setPosition(0.71
+            ); //stanga
+            ghearaDoi.setPosition(0.66); // dreapta
             telemetry.addData("Gheare", "1");
         } else {
                 ghearaUnu.setPosition(0);

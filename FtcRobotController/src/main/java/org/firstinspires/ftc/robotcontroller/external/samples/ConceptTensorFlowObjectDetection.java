@@ -29,15 +29,16 @@
 
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import java.util.List;
+
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection;
-import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+
+import java.util.List;
 
 /**
  * This 2019-2020 OpMode illustrates the basics of using the TensorFlow Object Detection API to
@@ -50,7 +51,6 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
  * is explained below.
  */
 @TeleOp(name = "Concept: TensorFlow Object Detection", group = "Concept")
-@Disabled
 public class ConceptTensorFlowObjectDetection extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "Skystone.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Stone";
@@ -69,7 +69,7 @@ public class ConceptTensorFlowObjectDetection extends LinearOpMode {
      * and paste it in to your code on the next line, between the double quotes.
      */
     private static final String VUFORIA_KEY =
-            " -- YOUR NEW VUFORIA KEY GOES HERE  --- ";
+            "AZh7233/////AAABmbLBI/BiH0p1kiHx3gUyS/tlm5zshpG/Wgkdt2jiWz8Qts2UcYqH0lmdKqIkZAkXxp5GwIUGfpRUd50yx0r0lpnzRcp0JYO+xs0IEEL7LzGn2BICXZ870uInPvYjzyZTSqmj3ZIZJtAP+YXeLPZkZMboOgl166G0zwyHXmkKw8fghaOqh73uYfe0YUlARQp4Ur/u4BqUQTBZYj5t+ZTr5vJk5cTjkgidSvVBQPysrLA6vf3XBg8iKYg/+H4wMf59/xKWdr0hkoLi37ZCjlbjbNocbpavWbqbfDzIttrPldZ+GLeEiQcY9UooRMdFEu22YvY2vA0so+O7/YcLdmOnFz/gtr+VYT/hu7WTPhxuZgaD";
 
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia

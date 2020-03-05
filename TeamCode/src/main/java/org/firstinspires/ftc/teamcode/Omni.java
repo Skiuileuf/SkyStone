@@ -88,15 +88,14 @@ public class Omni extends OpMode {
             glisiera.setPower(-0.2);
         }
         else {
-                //Daca nu se apasa nimic, motorul glisierei continua sa traga ata cu un power mic pentru a pastra pozitia curenta
-                glisiera.setPower(0.1);
+            //Daca nu se apasa nimic, motorul glisierei continua sa traga ata cu un power mic pentru a pastra pozitia curenta
+            glisiera.setPower(0.1);
         }
 
         //Cand se apasa butonul X pe gamepad 1 coboara sau urca ghearele
         if(GAMEPAD1.x.toggle)
         {
-            ghearaUnu.setPosition(0.71
-            ); //stanga
+            ghearaUnu.setPosition(0.71); //stanga
             ghearaDoi.setPosition(0.66); // dreapta
             telemetry.addData("Gheare", "1");
         } else {

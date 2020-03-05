@@ -26,7 +26,7 @@ public class Drive {
 
     }
 
-    private void initMecanum(HardwareMap hardwareMap) {
+    public void initMecanum(HardwareMap hardwareMap) {
         this.leftFront = hardwareMap.dcMotor.get("leftFront");
         this.rightFront = hardwareMap.dcMotor.get("rightFront");
         this.rightRear= hardwareMap.dcMotor.get("rightRear");

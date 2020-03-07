@@ -114,6 +114,8 @@ public class Omni extends OpMode {
         } else {
             bratUnu.setPosition(0); //dreapta
             bratDoi.setPosition(0.0632); //stanga
+
+
             telemetry.addData("Brat", 0);
         }
 

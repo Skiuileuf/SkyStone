@@ -10,6 +10,8 @@ import org.firstinspires.ftc.teamcode.Libs.Utils;
 
 public class Drive {
     private GAMEPAD gamepad1 = null;
+    private GAMEPAD gamepad2 = null;
+
     private Telemetry telemetry = null;
 
 
@@ -68,7 +70,15 @@ public class Drive {
     }
 
     void goTeleOp() {
-        goMecanum(gamepad1.left_stick_powerY, gamepad1.left_stick_powerX, gamepad1.right_stick_powerX);
+        if(gamepad1.left_bumper.toggle) {
+            goMecanum(gamepad1.left_stick_powerY, gamepad1.left_stick_powerX, gamepad1.right_stick_powerX);
+            telemetry.addData("Controale","Normale");
+        }
+        else
+        {
+            goMecanum(gamepad1.right_stick_powerY, gamepad1.right_stick_powerX, gamepad1.left_stick_powerX);
+            telemetry.addData("Controale","Inversate");
+        }
     }
 
     private void goMecanum(double left_stick_powerY, double left_stick_powerX, double right_stick_powerX) {

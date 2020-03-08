@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.position;
 
 public interface Action {
-    void execute(String title);
+    void execute(boolean state, int time);
 
 }
 

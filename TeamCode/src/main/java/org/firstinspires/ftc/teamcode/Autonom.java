@@ -57,7 +57,7 @@ public class Autonom extends OpMode {
     public void init() {
         telemetry.addData("Status", "Init");
         gettingMotorsReference();
-        //settingMotorsRunningMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        settingMotorsRunningMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // TODO: De testat daca merge fara
         settingMotorsDirections();
         settingMotorsZeroPowerBehavior();
@@ -138,7 +138,7 @@ public class Autonom extends OpMode {
             leftRear.setTargetPosition(position.getLeftRear());
             rightRear.setTargetPosition(position.getRightRear());
             if(position.getAction() != null) {
-                position.getAction().execute("Titlu");
+                position.getAction().execute(true, 1000);
             }
             currentStep++;
         } else {
@@ -167,4 +167,28 @@ public class Autonom extends OpMode {
     public void stopAndResetEncoders() {
         settingMotorsRunningMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
+
+    /**
+     * This method puts the current thread to sleep for the given time in msec.
+     * It handles InterruptException where it recalculates the remaining time
+     * and calls sleep again repeatedly until the specified sleep time has past.
+     *
+     * @param sleepTime specifies sleep time in msec.
+     */
+    public static void sleep(long sleepTime)
+    {
+        long wakeupTime = System.currentTimeMillis() + sleepTime;
+
+        while (sleepTime > 0)
+        {
+            try
+            {
+                Thread.sleep(sleepTime);
+            }
+            catch (InterruptedException e)
+            {
+            }
+            sleepTime = wakeupTime - System.currentTimeMillis();
+        }
+    }   //sleep
 }

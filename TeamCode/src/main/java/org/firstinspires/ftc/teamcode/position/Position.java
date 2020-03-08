@@ -10,12 +10,13 @@ public class Position {
 
     Action action;
 
-    public Position (int a, int b, int c, int d, Action action) {
-        this.leftFront = a;
-        this.leftRear = b;
-        this.rightFront = c;
-        this.leftRear = d;
+    public Position (int lf, int lr, int rf, int rr, Action action) {
+        this.leftFront = lf;
+        this.leftRear = lr;
+        this.rightFront = rf;
+        this.rightRear = rr; //AICI ERA GRESEALA
         this.action = action;
+
     }
 
     public Action getAction() {

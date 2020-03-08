@@ -52,18 +52,12 @@ public class Omni extends OpMode {
 
         bratUnu.setDirection(Servo.Direction.REVERSE);
 
-
-
-
-
         //Motor NeveRest 60:1
         //1680 tickuri/rotatie
         glisiera = hardwareMap.dcMotor.get("glisiera");
 
 
         //glisiera.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-
         glisiera.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //glisiera.setDirection(DcMotorSimple.Direction.REVERSE);
 /*
@@ -77,36 +71,27 @@ public class Omni extends OpMode {
     public void loop() {
         drive.goTeleOp();
 
-        if(GAMEPAD2.right_stick_y > 0.5)
-        {
-            //Daca batul drept pe gamepad 2 se deplaseaza in sus, glisiera se ridica
-            glisiera.setPower(1);
-        }
-        else if(GAMEPAD2.right_stick_y < -0.5)
-        {
-            //Daca batul drept pe gamepad 2 se deplaseaza in jos, motorul glisierei slabeste ata, se intinde din cauza gravitatiei si a caderii bratului
-            glisiera.setPower(-0.2);
-        }
-        else {
-            //Daca nu se apasa nimic, motorul glisierei continua sa traga ata cu un power mic pentru a pastra pozitia curenta
-            glisiera.setPower(0.1);
-        }
+        moveElevator(GAMEPAD2.right_stick_y);
+        moveServos(GAMEPAD1.x.toggle);
+        moveGrabber(GAMEPAD2.x.toggle);
+        telemetry.update();
+    }
 
-        //Cand se apasa butonul X pe gamepad 1 coboara sau urca ghearele
-        if(GAMEPAD1.x.toggle)
-        {
+    public void moveServos(boolean state) {
+        if(state) {
             ghearaUnu.setPosition(0.71); //stanga
             ghearaDoi.setPosition(0.66); // dreapta
             telemetry.addData("Gheare", "1");
         } else {
-                ghearaUnu.setPosition(0);
-                ghearaDoi.setPosition(0);
-                telemetry.addData("Gheare", "0");
+            ghearaUnu.setPosition(0);
+            ghearaDoi.setPosition(0);
+            telemetry.addData("Gheare", "0");
         }
+    }
 
-
-        //Cand se apasa butonul X pe gamepad 2 inchide sau deschide bratul
-        if(GAMEPAD2.x.toggle)
+    public void moveGrabber(boolean state)
+    {
+        if(state)
         {
             bratUnu.setPosition(0.92); //dreapta
             bratDoi.setPosition(0.98); //stanga
@@ -114,14 +99,22 @@ public class Omni extends OpMode {
         } else {
             bratUnu.setPosition(0); //dreapta
             bratDoi.setPosition(0.0632); //stanga
-
-
             telemetry.addData("Brat", 0);
         }
+    }
 
-
-
-        telemetry.update();
+    public void moveElevator(double power)
+    {
+        if(power > 0.5) {
+            //Daca batul drept pe gamepad 2 se deplaseaza in sus, glisiera se ridica
+            glisiera.setPower(1);
+        } else if(power < -0.5) {
+            //Daca batul drept pe gamepad 2 se deplaseaza in jos, motorul glisierei slabeste ata, se intinde din cauza gravitatiei si a caderii bratului
+            glisiera.setPower(-0.2);
+        } else {
+            //Daca nu se apasa nimic, motorul glisierei continua sa traga ata cu un power mic pentru a pastra pozitia curenta
+            glisiera.setPower(0.1);
+        }
     }
 
 }

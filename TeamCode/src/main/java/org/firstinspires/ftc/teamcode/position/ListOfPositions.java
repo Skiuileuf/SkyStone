@@ -1,14 +1,14 @@
 package org.firstinspires.ftc.teamcode.position;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.ArrayList;
+        import java.util.List;
 
 public class ListOfPositions {
 
     public static List<Position> positions (){
         List<Position> positions = new ArrayList<>();
 
-        Action g = new Gheara();
+        //Action g = new Gheara();
         positions.add(new Position(0,0,0,0,null));
 
 //        positions.add(new Position(1000, 1000, 1000, 1000, g));
@@ -18,7 +18,7 @@ public class ListOfPositions {
         positions.add(new Position(0, 0, 0, 0, null));
 
         positions.add(new Position(2000,2000, 2000, 2000,null));
-        positions.add(new Position(0,0,4000,4000,null));
+        positions.add(new Position(0,0,4000,4000,new Gheara(true, 1000)));
 
 
         return positions;

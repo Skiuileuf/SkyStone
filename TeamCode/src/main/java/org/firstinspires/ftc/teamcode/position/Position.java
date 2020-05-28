@@ -8,6 +8,7 @@ public class Position {
     int rightFront;
     int rightRear;
 
+
     Action action;
 
     public Position (int lf, int lr, int rf, int rr, Action action) {

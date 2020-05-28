@@ -1,48 +1,21 @@
-
-/* Copyright (c) 2017 FIRST. All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted (subject to the limitations in the disclaimer below) provided that
- * the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice, this list
- * of conditions and the following disclaimer.
- *
- * Redistributions in binary form must reproduce the above copyright notice, this
- * list of conditions and the following disclaimer in the documentation and/or
- * other materials provided with the distribution.
- *
- * Neither the name of FIRST nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.
- *
- * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
- * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.position.ListOfPositions;
 import org.firstinspires.ftc.teamcode.position.Position;
 
 import java.util.List;
 
-@Autonomous(name = "Autonom", group = "Pushbot")
 
-public class Autonom extends OpMode {
+@Autonomous(name = "AutonomLinear", group = "Autonomous")
+public class AutonomLinear extends LinearOpMode {
+
+    private ElapsedTime runtime = new ElapsedTime();
 
     List<Position> positions = null;
 
@@ -54,38 +27,42 @@ public class Autonom extends OpMode {
     private int currentStep = 0;
 
     @Override
-    public void init() {
+    public void runOpMode() throws InterruptedException {
+        //INIT
+
         telemetry.addData("Status", "Init");
         gettingMotorsReference();
         settingMotorsRunningMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // TODO: De testat daca merge fara
         settingMotorsDirections();
         settingMotorsZeroPowerBehavior();
-        //settingMotorsPower(0.2);
-        positions = ListOfPositions.positions();
-    }
 
-    @Override
-    public void start() {
+        sleep(100);
+
+        positions = ListOfPositions.positions();
+
+        // Wait for the game to start (driver presses PLAY)
+        waitForStart();
+        runtime.reset();
+
+        //START
         settingMotorsPower(0.2);
         telemetry.addData("Status", "Start");
         settingMotorsRunningMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }
 
-    @Override
-    public void loop() {
-        telemetry.addData("Status", "Loop");
-        checkPosition();
-    }
+        // run until the end of the match (driver presses STOP)
+        while (opModeIsActive()) {
+            telemetry.addData("Status", "Loop");
+            checkPosition();
+            //LOOP
+        }
 
-    @Override
-    public void stop() {
         if (!leftFront.isBusy() && !rightFront.isBusy() && !leftRear.isBusy() && !rightRear.isBusy()) {
             stopAndResetEncoders();
         }
         telemetry.addData("Status", "Stoped");
+        //STOP
     }
-
 
     private void checkPosition() {
 //        telemetry.addData("Info", "left front busy : " + leftFront.isBusy());
@@ -114,13 +91,15 @@ public class Autonom extends OpMode {
         telemetry.addData("Current step ", currentStep);
         if (currentStep < positions.size()) {
             Position position = positions.get(currentStep);
-            leftFront.setTargetPosition(position.getLeftFront());
-            rightFront.setTargetPosition(position.getRightFront());
-            leftRear.setTargetPosition(position.getLeftRear());
-            rightRear.setTargetPosition(position.getRightRear());
             if(position.getAction() != null) {
-                position.getAction().execute(true, 1000);
-
+                position.getAction().execute(position.getAction().motorState, position.getAction().runTime);
+                telemetry.addData("SLEEP", position.getAction().runTime);
+                sleep(position.getAction().runTime);
+            } else {
+                leftFront.setTargetPosition(position.getLeftFront());
+                rightFront.setTargetPosition(position.getRightFront());
+                leftRear.setTargetPosition(position.getLeftRear());
+                rightRear.setTargetPosition(position.getRightRear());
             }
             currentStep++;
         } else {
@@ -170,27 +149,4 @@ public class Autonom extends OpMode {
         settingMotorsRunningMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
-    /**
-     * This method puts the current thread to sleep for the given time in msec.
-     * It handles InterruptException where it recalculates the remaining time
-     * and calls sleep again repeatedly until the specified sleep time has past.
-     *
-     * @param sleepTime specifies sleep time in msec.
-     */
-    public static void sleep(long sleepTime)
-    {
-        long wakeupTime = System.currentTimeMillis() + sleepTime;
-
-        while (sleepTime > 0)
-        {
-            try
-            {
-                Thread.sleep(sleepTime);
-            }
-            catch (InterruptedException e)
-            {
-            }
-            sleepTime = wakeupTime - System.currentTimeMillis();
-        }
-    }   //sleep
 }

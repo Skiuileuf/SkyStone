@@ -71,13 +71,11 @@ public class Drive {
 
     void goTeleOp() {
         if(gamepad1.left_bumper.toggle) {
-            goMecanum(gamepad1.left_stick_powerY, gamepad1.left_stick_powerX, gamepad1.right_stick_powerX);
-            telemetry.addData("Controale","Normale");
-        }
-        else
-        {
             goMecanum(gamepad1.right_stick_powerY, gamepad1.right_stick_powerX, gamepad1.left_stick_powerX);
             telemetry.addData("Controale","Inversate");
+        } else {
+            goMecanum(gamepad1.left_stick_powerY, gamepad1.left_stick_powerX, gamepad1.right_stick_powerX);
+            telemetry.addData("Controale","Normale");
         }
     }
 
